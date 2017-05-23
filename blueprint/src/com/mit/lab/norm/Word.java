@@ -33,9 +33,9 @@ public class Word {
 		}
 	};
 
-	public List<String> regexToList(String words, String regex) {
+	private List<String> regexToList(String words) {
 		List<String> wordList = new ArrayList<>();
-		Matcher m = Pattern.compile(regex).matcher(words);
+		Matcher m = Pattern.compile("\\w+").matcher(words);
 		while (m.find())
 			wordList.add(m.group());
 		return wordList;
@@ -43,7 +43,7 @@ public class Word {
 
 	public Map<String, Integer> wordFreq(String words) {
 		Map<String, Integer> wordMap = new TreeMap<String, Integer>();
-		regexToList(words, "\\w+").stream().map(String::toLowerCase).filter(word -> !NON_WORDS.contains(words))
+		regexToList(words).stream().map(String::toLowerCase).filter(word -> !NON_WORDS.contains(words))
 				.forEach(word -> wordMap.put(String.valueOf(word), wordMap.getOrDefault(word, 0) + 1));
 		return wordMap;
 	}

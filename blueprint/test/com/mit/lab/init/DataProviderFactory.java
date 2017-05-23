@@ -1,10 +1,12 @@
 package com.mit.lab.init;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.mit.lab.meta.Items;
 import org.testng.annotations.DataProvider;
 
 import com.mit.lab.intf.UseInstance;
@@ -124,5 +126,66 @@ public class DataProviderFactory {
             new String[]{"09:00", "09:59"},
             new String[]{"10:30", "11:31"},
             new String[]{"18:00", "19:01"}};
+    }
+
+    @DataProvider(name = "collections-factory")
+    public static Object[][] generateCollections() {
+        return new Object[][]{
+            new Object[]{
+                new ArrayList<Map<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("sno.", 1);
+                        put("unid", 80);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put("sno.", 2);
+                        put("unid", 120);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put("sno.", 3);
+                        put("unid", 40);
+                    }});
+                }}, "unid"},
+            new Object[]{
+                new ArrayList<Map<String, Object>>() {{
+                    add(new HashMap<String, Object>() {{
+                        put("sno.", 4);
+                        put("unid", 10);
+                    }});
+                    add(new HashMap<String, Object>() {{
+                        put("sno.", 5);
+                        put("unid", 1);
+                    }});
+                }}, "unid"}};
+    }
+
+    @DataProvider(name = "seat-factory")
+    public static Object[][] generateSeats() {
+        return new Object[][]{
+            new Object[]{2, "1A 2F 1C"},
+            new Object[]{1, ""},
+            new Object[]{10, "1A 1J 2C 2E 3F 3K"}};
+    }
+
+    @DataProvider(name = "division-factory")
+    public static Object[][] generateDivision() {
+        return new Object[][]{
+            new Integer[]{4, 5, 1, 1, 1, 1, 4, 3, 1},
+            new Integer[]{-1, 3, -4, 5, 1, -6, 2, 1},
+            new Integer[]{1, -8, 16, -7, 100, -1, -2, 9, -13},
+            new Integer[]{10, 80, -100, 32}};
+    }
+
+    @DataProvider(name = "script-factory")
+    public static Object[][] generateScript() {
+        return new Object[][]{
+            new Object[]{new Items(5, 7), "item.setResult((item.num <= 15 && item.num >= 1) || (item.pos != -1))"},
+            new Object[]{new Items(20, -1), "item.setResult((item.num <= 15 && item.num >= 1) || (item.pos != -1))"},
+            new Object[]{
+                new Items("U", null), "item.setResult(item.status!=\"S\" || (typeof item.limited!=\"undefined\"))"},
+            new Object[]{
+                new Items("S", null), "item.setResult(item.status==\"S\" && (typeof item.limited!=\"undefined\"))"},
+            new Object[]{new Items("F", "Y"), "item.setResult(item.status==\"F\" && !item.limited)"}
+        };
     }
 }

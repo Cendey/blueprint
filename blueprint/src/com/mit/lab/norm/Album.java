@@ -17,7 +17,7 @@ import static java.util.Collections.unmodifiableList;
  *
  * @author Developer
  * @version 1.0
- * @date 5/9/2014
+ * @since 5/9/2014
  */
 public final class Album {
 
@@ -25,7 +25,7 @@ public final class Album {
     private List<Track> tracks;
     private List<Artist> musicians;
 
-    public Album(String name, List<Track> tracks, List<Artist> musicians) {
+    private Album(String name, List<Track> tracks, List<Artist> musicians) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(tracks);
         Objects.requireNonNull(musicians);
@@ -45,7 +45,7 @@ public final class Album {
     /**
      * @return the tracks
      */
-    public Stream<Track> getTracks() {
+    private Stream<Track> getTracks() {
         return tracks.stream();
     }
 
@@ -59,7 +59,7 @@ public final class Album {
     /**
      * @return the musicians
      */
-    public Stream<Artist> getMusicians() {
+    private Stream<Artist> getMusicians() {
         return musicians.stream();
     }
 

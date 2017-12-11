@@ -27,8 +27,8 @@ public class BizRuleTest {
 	}
 
 	@Test(dataProvider = "bizrule-factory", dataProviderClass = DataProviderFactory.class, groups = { "biz-rule" })
-	public void checkInsistance(Map<String, String> source) {
-		Map<String, String> result = BizRule.checkInsistance(source);
+	public void checkInsistence(Map<String, String> source) {
+		Map<String, String> result = BizRule.checkInsistence(source);
 		for (Map.Entry<String, String> item : result.entrySet()) {
 			System.out.println("Controller: " + item.getKey() + " , Subview: " + item.getValue());
 		}

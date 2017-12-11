@@ -19,12 +19,13 @@ public class Script {
         return instance;
     }
 
-    public void evaluate(Items params, String script) {
-        if (params != null) {
+    public void evaluate(Items params, final String script) {
+        if (params != null && script != null && script.trim().length() > 0) {
             bindings.put("item", params);
             context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
             try {
-                engine.eval(script, context);
+                String complete = "var result=" + script + ";\nitem.setResult(result);";
+                engine.eval(complete, context);
             } catch (ScriptException e) {
                 System.out.println(e.getCause().getMessage());
             }

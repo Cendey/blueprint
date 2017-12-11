@@ -5,17 +5,17 @@ import java.util.Map;
 
 public class BizRule {
 
-	public static Map<String, String> checkInsistance(Map<String, String> bizRuleConfig) {
+	public static Map<String, String> checkInsistence(Map<String, String> bizRuleConfig) {
 		Map<String, String> result = null;
 		if (bizRuleConfig != null) {
 			String firstPart;
 			String lastPart;
-			result = new HashMap<String, String>();
+			result = new HashMap<>();
 			System.err.append("Sub controller configuration incorrect:\n");
 			for (Map.Entry<String, String> item : bizRuleConfig.entrySet()) {
 				firstPart = item.getKey();
 				lastPart = item.getValue();
-				try {
+				try{
 					Class.forName(firstPart);
 					result.put(firstPart, lastPart);
 				} catch (ClassNotFoundException e) {

@@ -1,20 +1,19 @@
 package com.mit.lab.init;
 
+import com.mit.lab.intf.Function;
+import com.mit.lab.intf.UseInstance;
+import com.mit.lab.meta.Items;
+import com.mit.lab.norm.FileWriterEAM;
+import com.mit.lab.norm.FireEngines;
+import com.mit.lab.norm.FluentMailer;
+import com.mit.lab.norm.Holder;
+import org.testng.annotations.DataProvider;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
-import com.mit.lab.meta.Items;
-import org.testng.annotations.DataProvider;
-
-import com.mit.lab.intf.UseInstance;
-import com.mit.lab.norm.FileWriterEAM;
-import com.mit.lab.norm.FireEngines;
-import com.mit.lab.norm.FluentMailer;
-import com.mit.lab.norm.Holder;
-import com.mit.lab.norm.Word;
 
 /**
  * <p>Project    : Blueprint</p>
@@ -59,12 +58,16 @@ public class DataProviderFactory {
 
     @DataProvider(name = "worlds-factory")
     public static Object[][] generateWorlds() {
-        Word contents = new Word();
         return new Object[][]{
-            new Object[]{contents, "i just wanna be with you! do you know?"},
-            new Object[]{contents, "but and i wanna know who is in your heart. just yourself or someone else?"},
-            new Object[]{contents, "go out or stay at home!"},
-            new Object[]{contents, "this is so beautiful,then as the owner i will keep of it!"}};
+            new Object[]{"i just wanna be with you! do you know?", 10},
+            new Object[]{"but and i wanna know who is in your heart. just yourself or someone else?", 100},
+            new Object[]{"go out or stay at home!", 2},
+            new Object[]{"this is so beautiful,then as the owner i will keep of it!", 100},
+            new Object[]{"中国辉煌的文明必将影响世界", 8},
+            new Object[]{"中国は栄光のウェン・ミングの世界に影響を与えるにバインドされ", 8},
+            new Object[]{"중국은 영광스러운 웬 밍 세계에 영향을 미칠 수밖에 없다", 8},
+            new Object[]{"Wen Ming Sinis est in gloria mundi tenetur et afficit,", 8}
+        };
     }
 
     @DataProvider(name = "register-factory")
@@ -93,17 +96,23 @@ public class DataProviderFactory {
 
     @DataProvider(name = "bizrule-factory")
     public static Object[][] generateBizRule() {
-        Map<String, String> source = new HashMap<String, String>();
-        source.put("com.mit.lab.norm.BizRule", "Biz Rule");
-        source.put("java.util.HashMap", "Hash Map");
-        source.put("java.util.ArrayList", "Array List");
-        source.put("com.mit.lab.norm.Person", "Person");
-        source.put("Truck", "com.mit.lab.norm.Truck");
-        source.put("com.mit.lab.norm.Album", "Album");
-        source.put("com.mit. lab.norm.Artist", "Artist");
-        source.put("com.mit.lab.norm. DatePlain", "Data Plain");
-        source.put(" com.mit .lab.norm.Track", "Track");
-        return new Object[][]{new Object[]{source}, new Object[]{null}};
+        return new Object[][]{
+            new Object[]{
+                new HashMap<String, String>() {
+                    {
+                        put("com.mit.lab.norm.BizRule", "Biz Rule");
+                        put("java.util.HashMap", "Hash Map");
+                        put("java.util.ArrayList", "Array List");
+                        put("com.mit.lab.norm.Person", "Person");
+                        put("Truck", "com.mit.lab.norm.Truck");
+                        put("com.mit.lab.norm.Album", "Album");
+                        put("com.mit. lab.norm.Artist", "Artist");
+                        put("com.mit.lab.norm. DatePlain", "Data Plain");
+                        put(" com.mit .lab.norm.Track", "Track");
+                    }
+                }
+            }
+        };
     }
 
     @DataProvider(name = "solution-factory")
@@ -179,13 +188,30 @@ public class DataProviderFactory {
     @DataProvider(name = "script-factory")
     public static Object[][] generateScript() {
         return new Object[][]{
-            new Object[]{new Items(5, 7), "item.setResult((item.num <= 15 && item.num >= 1) || (item.pos != -1))"},
-            new Object[]{new Items(20, -1), "item.setResult((item.num <= 15 && item.num >= 1) || (item.pos != -1))"},
+            new Object[]{new Items(5, 7), "(item.num <= 15 && item.num >= 1) || (item.pos != -1)"},
+            new Object[]{new Items(20, -1), "(item.num <= 15 && item.num >= 1) || (item.pos != -1)"},
             new Object[]{
-                new Items("U", null), "item.setResult(item.status!=\"S\" || (typeof item.limited!=\"undefined\"))"},
+                new Items("U", null), "item.status!=\"S\" || (typeof item.limited!=\"undefined\")"},
             new Object[]{
-                new Items("S", null), "item.setResult(item.status==\"S\" && (typeof item.limited!=\"undefined\"))"},
-            new Object[]{new Items("F", "Y"), "item.setResult(item.status==\"F\" && !item.limited)"}
+                new Items("S", null), "item.status==\"S\" && (typeof item.limited!=\"undefined\")"},
+            new Object[]{new Items("F", "Y"), "item.status==\"F\" && !item.limited"}
         };
     }
+
+    @DataProvider(name = "function-factory")
+    public static Object[][] generateFunction() {
+        Function<Integer, Integer> triple = x -> x * 3;
+        Function<Integer, Integer> square = x -> x * x;
+        Function<Double, Double> cycle = z -> Math.PI / 2 - z;
+        Function<Double, Double> calc = Math::cos;
+        return new Object[][]{
+            new Object[]{triple, square, 5},
+            new Object[]{triple, triple, 5},
+            new Object[]{square, triple, 5},
+            new Object[]{square, square, 5},
+            new Object[]{cycle, calc, 10.0},
+            new Object[]{calc, cycle, 10.0}
+        };
+    }
+
 }

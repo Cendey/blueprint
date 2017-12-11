@@ -41,7 +41,7 @@ public class GenericTest {
 	@Test(dataProvider = "string-factory", dataProviderClass = DataProviderFactory.class, groups = { "string-operation" })
 	public void testReplaceNoneCharater(String source, String regex) {
 		if (source.indexOf("-") != -1) {
-			System.out.println(Generic.replaceNoneCharater(source, regex));
+			System.out.println(Generic.replaceNoneCharacter(source, regex));
 		}
 	}
 

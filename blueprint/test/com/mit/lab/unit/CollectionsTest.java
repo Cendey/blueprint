@@ -20,7 +20,7 @@ import java.util.Map;
 public class CollectionsTest {
 
     @Test(dataProvider = "collections-factory", dataProviderClass = DataProviderFactory.class, groups = {"collections"})
-    public void testPickUnids(List<Map<String, Object>> source, String name) throws Exception {
+    public void testExtractPK(List<Map<String, Object>> source, String name) throws Exception {
         Collections target = new Collections();
         StackTraceElement[] stackTraces = new Throwable().getStackTrace();
         StringBuilder trace = new StringBuilder();

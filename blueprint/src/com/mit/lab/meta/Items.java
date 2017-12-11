@@ -65,6 +65,6 @@ public class Items {
 
     @Override
     public String toString() {
-        return String.format("{num=%d; pos=%d; status=%s; limited=%s}", getNum(), getPos(), getStatus() != null ? getStatus() : "?", getLimited() != null ? getLimited() : "?");
+        return String.format("{num=%d; pos=%d; status=%s; limited=%s}", getNum(), getPos(), getStatus() != null ? getStatus() : "", getLimited() != null ? getLimited() : "");
     }
 }
